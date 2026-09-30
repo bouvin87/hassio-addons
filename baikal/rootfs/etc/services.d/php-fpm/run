@@ -5,4 +5,4 @@
 # ==============================================================================
 bashio::log.info "Starting PHP-FPM..."
 
-exec php-fpm82 --nodaemonize
+exec php-fpm83 --nodaemonize
