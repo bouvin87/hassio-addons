@@ -14,20 +14,21 @@ RUN apk add --no-cache \
     nginx \
     curl \
     unzip \
-    php82 \
-    php82-curl \
-    php82-fpm \
-    php82-mbstring \
-    php82-pdo \
-    php82-pdo_mysql \
-    php82-pdo_sqlite \
-    php82-dom \
-    php82-simplexml \
-    php82-openssl \
-    php82-fileinfo \
-    php82-iconv
-
-RUN php82 -v
+    php83 \
+    php83-curl \
+    php83-fpm \
+    php83-mbstring \
+    php83-pdo \
+    php83-pdo_mysql \
+    php83-pdo_sqlite \
+    php83-sqlite3 \
+    php83-session \
+    php83-dom \
+    php83-simplexml \
+    php83-fileinfo \
+    php83-iconv
+    
+RUN php83 -v
 
 RUN curl -fL \
     "https://github.com/sabre-io/Baikal/releases/download/${VERSION}/baikal-${VERSION}.zip" \
