@@ -12,27 +12,27 @@ ENV VERSION 0.12.1
 RUN \
     apk add --no-cache \
         nginx \
-        php81-curl \
-        php81-fpm \
-        php81-mbstring \
-        php81-xml \
-        php81 \
-	php81-sqlite3 \
-	php81-pdo \
-	php81-pdo_mysql \
-	php81-pdo_sqlite \
-	php81-session \
-	php81-dom \
-	php81-xmlreader \
-	php81-xmlwriter \
+        php82 \
+        php82-curl \
+        php82-fpm \
+        php82-mbstring \
+        php82-xml \
+        php82-sqlite3 \
+        php82-pdo \
+        php82-pdo_mysql \
+        php82-pdo_sqlite \
+        php82-session \
+        php82-dom \
+        php82-xmlreader \
+        php82-xmlwriter \
     \
     && curl -Ls "https://github.com/sabre-io/Baikal/releases/download/$VERSION/baikal-$VERSION.zip" -o baikal-$VERSION.zip \
-        && unzip -q baikal-$VERSION.zip -d /var/www/ \
-		&& rm baikal-$VERSION.zip \
+    && unzip -q baikal-$VERSION.zip -d /var/www/ \
+    && rm baikal-$VERSION.zip \
     \
-	&& rm -f -r \
+    && rm -f -r \
         /tmp/* \
-        /etc/nginx 
+        /etc/nginx
 
 # Copy root filesystem
 COPY rootfs /
