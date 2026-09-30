@@ -1,4 +1,4 @@
-FROM ghcr.io/home-assistant/base:latest
+FROM ghcr.io/home-assistant/base:3.22
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -19,7 +19,6 @@ RUN apk add --no-cache \
     php82-pdo_sqlite \
     php82-dom \
     php82-simplexml \
-    php82-openssl \
     php82-fileinfo \
     php82-iconv
 
