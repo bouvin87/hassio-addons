@@ -25,6 +25,9 @@ RUN apk add --no-cache \
     php83-session \
     php83-dom \
     php83-simplexml \
+    php83-xml \
+    php83-xmlreader \
+    php83-xmlwriter \
     php83-fileinfo \
     php83-iconv
     
