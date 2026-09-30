@@ -1,46 +1,35 @@
 FROM ghcr.io/home-assistant/base:latest
 
-# Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV VERSION=0.12.1
 
-# Setup base
-RUN \
-    apk add --no-cache \
+RUN apk update \
+    && apk add --no-cache \
         nginx \
+        curl \
+        unzip \
         php82 \
         php82-curl \
         php82-fpm \
         php82-mbstring \
-        php82-xml \
-        php82-sqlite3 \
         php82-pdo \
         php82-pdo_mysql \
         php82-pdo_sqlite \
-        php82-session \
         php82-dom \
-        php82-xmlreader \
-        php82-xmlwriter \
-        curl \
-        unzip \
-    \
+        php82-simplexml \
+        php82-openssl \
+        php82-fileinfo \
+        php82-iconv \
     && curl -Ls \
-        "https://github.com/sabre-io/Baikal/releases/download/$VERSION/baikal-$VERSION.zip" \
-        -o "baikal-$VERSION.zip" \
-    \
-    && unzip -q "baikal-$VERSION.zip" -d /var/www/ \
-    \
-    && rm "baikal-$VERSION.zip" \
-    \
-    && rm -rf \
-        /tmp/* \
-        /etc/nginx
+        "https://github.com/sabre-io/Baikal/releases/download/${VERSION}/baikal-${VERSION}.zip" \
+        -o "/tmp/baikal-${VERSION}.zip" \
+    && unzip -q "/tmp/baikal-${VERSION}.zip" -d /var/www/ \
+    && rm "/tmp/baikal-${VERSION}.zip" \
+    && rm -rf /etc/nginx
 
-# Copy root filesystem
 COPY rootfs /
 
-# Correct permissions for s6 v3
 RUN \
     if [ -d /etc/cont-init.d ]; then \
         chmod -R 755 /etc/cont-init.d; \
@@ -51,7 +40,6 @@ RUN \
 
 WORKDIR "/data"
 
-# Build arguments
 ARG BUILD_ARCH
 ARG BUILD_DATE
 ARG BUILD_DESCRIPTION
@@ -60,7 +48,6 @@ ARG BUILD_REF
 ARG BUILD_REPOSITORY
 ARG BUILD_VERSION
 
-# Labels
 LABEL \
     io.hass.name="${BUILD_NAME}" \
     io.hass.description="${BUILD_DESCRIPTION}" \
