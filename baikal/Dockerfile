@@ -4,28 +4,34 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV VERSION=0.12.1
 
-RUN apk update \
-    && apk add --no-cache \
-        nginx \
-        curl \
-        unzip \
-        php82 \
-        php82-curl \
-        php82-fpm \
-        php82-mbstring \
-        php82-pdo \
-        php82-pdo_mysql \
-        php82-pdo_sqlite \
-        php82-dom \
-        php82-simplexml \
-        php82-openssl \
-        php82-fileinfo \
-        php82-iconv \
-    && curl -Ls \
-        "https://github.com/sabre-io/Baikal/releases/download/${VERSION}/baikal-${VERSION}.zip" \
-        -o "/tmp/baikal-${VERSION}.zip" \
-    && unzip -q "/tmp/baikal-${VERSION}.zip" -d /var/www/ \
-    && rm "/tmp/baikal-${VERSION}.zip" \
+RUN apk update
+
+RUN apk add --no-cache \
+    nginx \
+    curl \
+    unzip \
+    php82 \
+    php82-curl \
+    php82-fpm \
+    php82-mbstring \
+    php82-pdo \
+    php82-pdo_mysql \
+    php82-pdo_sqlite \
+    php82-dom \
+    php82-simplexml \
+    php82-openssl \
+    php82-fileinfo \
+    php82-iconv
+
+RUN curl -fL \
+    "https://github.com/sabre-io/Baikal/releases/download/${VERSION}/baikal-${VERSION}.zip" \
+    -o "/tmp/baikal-${VERSION}.zip"
+
+RUN unzip -q \
+    "/tmp/baikal-${VERSION}.zip" \
+    -d /var/www/
+
+RUN rm "/tmp/baikal-${VERSION}.zip" \
     && rm -rf /etc/nginx
 
 COPY rootfs /
